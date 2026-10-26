@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include <math.h>
+int main(void){
+ long double log2fact=0;
+ for(int i=1;i<=25;i++)log2fact+=log2l((long double)i);
+ long double raw=log2fact;
+ long double equivalent=raw;
+ for(int i=1;i<=5;i++) equivalent-=log2l((long double)i)*2;
+ equivalent-=1.0L;
+ printf("All square arrangements: 25! = approximately 2^%.2Lf\n",raw);
+ printf("Effectively unique keys: 25!/(5! * 5! * 2) = approximately 2^%.2Lf\n",equivalent);
+ return 0;
+}
