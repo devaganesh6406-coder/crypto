@@ -1,0 +1,13 @@
+#include <ctype.h>
+#include <string.h>
+char sq[5][5]={{'P','L','A','Y','F'},{'I','R','E','B','C'},{'D','G','H','K','M'},{'N','O','Q','S','T'},{'U','V','W','X','Z'}};
+void pos(char c,int *r,int *col){if(c=='J')c='I';for(int i=0;i<5;i++)for(int j=0;j<5;j++)if(sq[i][j]==c){*r=i;*col=j;return;}}
+int main(void){
+ char s[]="KXJEY UREBE ZWEHE WRYTU HEYFS KREHE GOYFI WTTTU OLKSY CAJPO BOTEI ZONTX BYBNT GONEY CUZWR GDSON SXBOU YWRHE BAAHY USEDQ";
+ char t[500];int n=0;
+ for(int i=0;s[i];i++)if(isalpha((unsigned char)s[i]))t[n++]=(char)toupper((unsigned 
+   else if(c1==c2){putchar(sq[(r1+4)%5][c1]);putchar(sq[(r2+4)%5][c2]);}
+   else {putchar(sq[r1][c2]);putchar(sq[r2][c1]);}
+ }
+ puts(""); return 0;
+}
