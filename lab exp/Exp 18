@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include <stdint.h>
+int main(void){
+ uint64_t key56;
+ printf("Enter a 56-bit key as an unsigned decimal integer (0 to 72057594037927935): ");
+ if(scanf("%llu",(unsigned long long*)&key56)!=1)return 1;
+ key56 &= 0x00FFFFFFFFFFFFFFULL;
+ uint32_t C=(uint32_t)((key56>>28)&0x0FFFFFFF),D=(uint32_t)(key56&0x0FFFFFFF);
+ printf("C0 = %07X (28 bits)\nD0 = %07X (28 bits)\n",C,D);
+ puts("Each round rotates C and D independently according to DES shift schedule, then PC-2 selects 24 bits from each half.");
+ puts("Note: this teaching example starts from a 56-bit PC-1 result; a real DES key must first undergo PC-1.");
+ return 0;
+}
