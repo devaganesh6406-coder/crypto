@@ -1,0 +1,9 @@
+#include <stdio.h>
+int main(void){
+ puts("ECB: a bit error in ciphertext block C_i corrupts only plaintext block P_i.");
+ puts("CBC: an error in C_i corrupts all of P_i and flips the corresponding bit in P_(i+1).");
+ puts("CBC: blocks after P_(i+1) are unaffected by a one-bit transmission error in C_i.");
+ puts("If the source P1 has a bit error before encryption, CBC changes C1 and then generally every later ciphertext block.");
+ puts("At the receiver, the corrupted P1 and subsequent plaintext blocks are generally corrupted.");
+ return 0;
+}
