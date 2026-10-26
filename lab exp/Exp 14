@@ -1,0 +1,12 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+int main(void){
+ char p[]="send more money";int key[]={9,0,1,7,23,15,21,14,11,11,2,8,9};
+ char c[100];int j=0;
+ for(int i=0;p[i];i++)if(isalpha((unsigned char)p[i])){c[i]=(char)('a'+(p[i]-'a'+key[j++])%26);}else c[i]=p[i];
+ c[strlen(p)]='\0';printf("Ciphertext: %s\n",c);
+ printf("To decrypt, use P=(C-K+26) mod 26 with the same stream.\n");
+ puts("For part (b), the required key for target 'cash not needed' is K=(C-P+26) mod 26 at each letter.");
+ return 0;
+}
