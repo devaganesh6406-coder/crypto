@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+char sq[5][5]={{'M','F','H','I','K'},{'U','N','O','P','Q'},{'Z','V','W','X','Y'},{'E','L','A','R','G'},{'D','S','T','B','C'}};
+void pos(char c,int *r,int *col){if(c=='J')c='I';for(int i=0;i<5;i++)for(int j=0;j<5;j++)if(sq[i][j]==c){*r=i;*col=j;return;}}
+int main(void){
+ char in[1000],p[1000];int n=0;
+ printf("Plaintext (default: Must see you over Cadogan West. Coming at once.):\n");
+ if(!fgets(in,sizeof in,stdin))return 1;
+ if(in[0]=='\n')strcpy(in,"Must see you over Cadogan West. Coming at once.");
+ for(int i=0;in[i];i++)if(isalpha((unsigned char)in[i])){char c=(char)toupper((unsigned char)in[i]);p[n++]=(c=='J')?'I':c;}
+ if(n%2){p[n++]='X';}
+ char out[2000];int k=0;
+ for(int i=0;i<n;i+=2){char a=p[i],b=p[i+1];if(a==b){b='X'; /* insert filler by handling this pair simply */ }
+  int r1,c1,r2,c2;pos(a,&r1,&c1);pos(b,&r2,&c2);
+  if(r1==r2){out[k++]=sq[r1][(c1+1)%5];out[k++]=sq[r2][(c2+1)%5];}
+  else if(c1==c2){out[k++]=sq[(r1+1)%5][c1];out[k++]=sq[(r2+1)%5][c2];}
+  else {out[k++]=sq[r1][c2];out[k++]=sq[r2][c1];}
+ }
+ out[k]='\0';printf("Ciphertext: %s\n",out);return 0;
+}
