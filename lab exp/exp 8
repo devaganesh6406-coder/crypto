@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+int main(void) {
+    char keyword[]="CIPHER", plain[1000], cipher[27], used[26]={0};
+    int n=0;
+    for(int i=0;keyword[i];i++) {
+        int x=toupper((unsigned char)keyword[i])-'A';
+        if(!used[x]) {cipher[n++]=(char)('A'+x); used[x]=1;}
+    }
+    for(int i=0;i<26;i++) if(!used[i]) cipher[n++]=(char)('A'+i);
+    cipher[26]='\0';
+    printf("Plain : ABCDEFGHIJKLMNOPQRSTUVWXYZ\nCipher: %s\n",cipher);
+    printf("Enter plaintext to encrypt:\n");
+    if(!fgets(plain,sizeof plain,stdin)) return 1;
+    for(int i=0;plain[i];i++) {
+        if(isalpha((unsigned char)plain[i])) {
+            int x=toupper((unsigned char)plain[i])-'A';
+            char c=cipher[x];
+            plain[i]=islower((unsigned char)plain[i])?(char)tolower(c):c;
+        }
+    }
+    printf("Ciphertext: %s",plain);
+    return 0;
+}
