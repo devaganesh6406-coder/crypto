@@ -1,0 +1,14 @@
+#include <stdio.h>
+int P10[]={3,5,2,7,4,10,1,9,8,6},P8[]={6,3,7,4,8,5,10,9},IP[]={2,6,3,1,4,8,5,7},IP1[]={4,1,3,5,7,2,8,6},EP[]={4,1,2,3,2,3,4,1},P4[]={2,4,3,1};
+int S0[4][4]={{1,0,3,2},{3,2,1,0},{0,2,1,3},{3,1,3,2}},S1[4][4]={{0,1,2,3},{2,0,1,3},{3,0,1,0},{2,1,0,3}};
+void perm(int*a,int*b,int*p,int n){for(int i=0;i<n;i++)b[i]=a[p[i]-1];}
+void keys(int*k,int*k1,int*k2){int x[10],l[5],r[5],y[10];perm(k,x,P10,10);for(int i=0;i<5;i++){l[i]=x[(i+1)%5];r[i]=x[5+(i+1)%5];}for(int i=0;i<5;i++){y[i]=l[i];y[i+5]=r[i];}perm(y,k1,P8,8);for(int i=0;i<5;i++){y[i]=l[(i+2)%5];y[i+5]=r[(i+2)%5];}perm(y,k2,P8,8);}
+void fk(int*b,int*k){int l[4],r[4],e[8],x[8],z[4],p[4];for(int i=0;i<4;i++){l[i]=b[i];r[i]=b[i+4];}perm(r,e,EP,8);for(int i=0;i<8;i++)x[i]=e[i]^k[i];int row=x[0]*2+x[3],col=x[1]*2+x[2],v=S0[row][col];z[0]=v/2;z[1]=v%2;row=x[4]*2+x[7];col=x[5]*2+x[6];v=S1[row][col];z[2]=v/2;z[3]=v%2;perm(z,p,P4,4);for(int i=0;i<4;i++){b[i]=l[i]^p[i];b[i+4]=r[i];}}
+void sdes(int*in,int*k1,int*k2,int*out){int b[8],t;perm(in,b,IP,8);fk(b,k1);for(int i=0;i<4;i++){t=b[i];b[i]=b[i+4];b[i+4]=t;}fk(b,k2);perm(b,out,IP1,8);}
+int main(void){int key[10]={0,1,1,1,1,1,1,1,0,1},k1[8],k2[8];keys(key,k1,k2);
+ int p[24]={0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0},c[24],counter[8]={0},stream[8],tmp[8];
+ for(int b=0;b<3;b++){sdes(counter,k1,k2,stream);for(int i=0;i<8;i++)c[b*8+i]=p[b*8+i]^stream[i];for(int j=7;j>=0;j--){counter[j]^=1;if(counter[j])break;}}
+ printf("CTR ciphertext: ");for(int i=0;i<24;i++)printf("%d",c[i]);puts("");
+ /* CTR decryption is the same XOR operation with the same counter stream. */
+ for(int b=0;b<3;b++){int ctr[8]={0};int val=b;for(int j=7;j>=0;j--){ctr[j]=val%2;val/=2;}sdes(ctr,k1,k2,stream);for(int i=0;i<8;i++)tmp[i]=c[b*8+i]^stream[i];}
+ puts("CTR decryption uses the same keystream and XOR operation.");return 0;}
