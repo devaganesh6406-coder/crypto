@@ -1,0 +1,8 @@
+#include <stdio.h>
+int main(void){
+ int K[16];for(int i=0;i<16;i++)K[i]=i+1;
+ puts("Encryption round order:");for(int i=0;i<16;i++)printf("K%d ",K[i]);puts("");
+ puts("Decryption round order:");for(int i=15;i>=0;i--)printf("K%d ",K[i]);puts("");
+ puts("DES decryption key schedule: apply the same DES key-generation process, then use K16,...,K1.");
+ return 0;
+}
