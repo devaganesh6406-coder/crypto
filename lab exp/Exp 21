@@ -1,0 +1,13 @@
+#include <string.h>
+int main(void){
+ char bits[4096];int block;
+ printf("Enter binary plaintext: ");if(scanf("%4095s",bits)!=1)return 1;
+ printf("Enter block size in bits: ");if(scanf("%d",&block)!=1||block<=0)return 1;
+ int n=(int)strlen(bits);
+ for(int i=0;i<n;i++)if(bits[i]!='0'&&bits[i]!='1'){puts("Only 0 and 1 are allowed.");return 1;}
+ int pad=block-(n+1)%block;if(pad==block)pad=0;
+ strcat(bits,"1");for(int i=0;i<pad;i++)strcat(bits,"0");
+ /* If input was already complete, this still adds a full padding block. */
+ if(n%block==0){strcatpadding block even for aligned plaintext makes padding unambiguous during removal.");
+ return 0;
+}
