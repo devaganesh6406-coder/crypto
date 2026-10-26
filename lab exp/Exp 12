@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+int main(void){
+ char s[2000],p[2000],c[2000];int n=0;
+ printf("Plaintext (default: meet me at the usual place at ten rather than eight oclock):\n");
+ if(!fgets(s,sizeof s,stdin))return 1;
+ if(s[0]=='\n')strcpy(s,"meet me at the usual place at ten rather than eight oclock");
+ for(int i=0;s[i];i++)if(isalpha((unsigned char)s[i]))p[n++]=(char)tolower((unsigned char)s[i]);
+ if(n%2)p[n++]='x';p[n]='\0';
+ for(int i=0;i<n;i+=2){int a=p[i]-'a',b=p[i+1]-'a';c[i]=(char)('a'+(9*a+4*b)%26);c[i+1]=(char)('a'+(5*a+7*b)%26);}
+ c[n]='\0';printf("Ciphertext: %s\n",c);
+ printf("Decrypting the ciphertext:\n");
+ for(int i=0;i<n;i+=2){int a=c[i]-'a',b=c[i+1]-'a';
+   /* inverse matrix = 23 * [[7,-4],[-5,9]] mod 26 = [[5,12],[15,25]] */
+   printf("%c%c",'a'+(5*a+12*b)%26,'a'+(15*a+25*b)%26);
+ }
+ puts("");return 0;
+}
