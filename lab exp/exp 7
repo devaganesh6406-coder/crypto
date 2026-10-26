@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+int main(void) {
+    char s[10000], key[100], out[10000];
+    printf("Ciphertext (letters A-Z; punctuation is preserved):\n");
+    if(!fgets(s,sizeof s,stdin)) return 1;
+    printf("26-letter key for cipher A-Z (? for unknown):\n");
+    if(!fgets(key,sizeof key,stdin)) return 1;
+    for(int i=0;i<26;i++) key[i]=(char)tolower((unsigned char)key[i]);
+    int n=(int)strlen(s);
+    for(int i=0;i<n;i++) {
+        if(isalpha((unsigned char)s[i])) {
+            int k=toupper((unsigned char)s[i])-'A';
+            out[i]=(key[k]>='a'&&key[k]<='z')?key[k]:'_';
+        } else out[i]=s[i];
+    }
+    out[n]='\0'; printf("Plaintext guess:\n%s",out);
+    return 0;
+}
