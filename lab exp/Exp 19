@@ -1,0 +1,8 @@
+#include <stdio.h>
+int main(void){
+ puts("Security: choose 3DES over single DES if restricted to these two choices.");
+ puts("Performance: single DES is faster, but is insecure and obsolete.");
+ puts("CBC: C_i = E_K(P_i XOR C_(i-1)); C_0 is the initialization vector (IV).");
+ puts("Modern note: for new systems, prefer AES-GCM or another authenticated modern cipher; 3DES is deprecated.");
+ return 0;
+}
