@@ -1,0 +1,14 @@
+#include <stdio.h>
+int mod(int x){x%=26;return x<0?x+26:x;}
+int inv(int d){d=mod(d);for(int i=1;i<26;i++)if(mod(d*i)==1)return i;return -1;}
+int main(void){
+ char p[5],c[5];int a,b,d,e,det,di;
+ printf("Enter 4 plaintext letters (two pairs, e.g. help): ");scanf("%4s",p);
+ printf("Enter corresponding 4 ciphertext letters: ");scanf("%4s",c);
+ a=p[0]-'a';b=p[1]-'a';d=p[2]-'a';e=p[3]-'a';
+ det=mod(a*e-b*d);di=inv(det);
+ if(di<0){puts("Plaintext matrix is not invertible mod 26; choose another pair.");return 0;}
+ printf("The plaintext matrix is invertible. Key matrix can be recovered as C * inverse(P) mod 26.\n");
+ puts("This short demo checks the required condition; full matrix multiplication is left as the exercise.");
+ return 0;
+}
