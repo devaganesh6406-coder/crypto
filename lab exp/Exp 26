@@ -1,0 +1,22 @@
+
+#include <stdio.h>
+
+int main()
+{
+    int n = 55;
+    int e1 = 3, d1 = 27;
+    int e2 = 7, d2 = 23;
+
+    printf("RSA Modulus: %d\n", n);
+
+    printf("\nOld Public Key: (%d, %d)", e1, n);
+    printf("\nOld Private Key: (%d, %d)", d1, n);
+
+    printf("\n\nNew Public Key: (%d, %d)", e2, n);
+    printf("\nNew Private Key: (%d, %d)", d2, n);
+
+    printf("\n\nThe modulus remains unchanged.");
+    printf("\nThe attacker can factor n and calculate new private keys.");
+
+    return 0;
+}
