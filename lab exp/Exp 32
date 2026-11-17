@@ -1,0 +1,29 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main()
+{
+    int message = 25;
+    int k1, k2;
+
+    srand((unsigned)time(NULL));
+
+    k1 = rand() % 100 + 1;
+    k2 = rand() % 100 + 1;
+
+    printf("Message: %d\n", message);
+
+    printf("\nDSA Signature 1: (%d, %d)\n",
+           k1, (message + k1) % 101);
+
+    printf("DSA Signature 2: (%d, %d)\n",
+           k2, (message + k2) % 101);
+
+    printf("\nRSA-style deterministic signature:\n");
+    printf("Signature 1: %d\n", (message * 7) % 101);
+    printf("Signature 2: %d\n", (message * 7) % 101);
+
+    return 0;
+}
