@@ -1,0 +1,54 @@
+
+#include <stdio.h>
+#include <stdint.h>
+
+uint64_t shift64(uint64_t x)
+{
+    return x << 1;
+}
+
+void cmac64(uint64_t L)
+{
+    uint64_t K1, K2;
+
+    K1 = L << 1;
+    if (L >> 63)
+        K1 ^= 0x1B;
+
+    K2 = K1 << 1;
+    if (K1 >> 63)
+        K2 ^= 0x1B;
+
+    printf("64-bit K1 = %016llX\n",
+           (unsigned long long)K1);
+    printf("64-bit K2 = %016llX\n",
+           (unsigned long long)K2);
+}
+
+void cmac128(unsigned __int128 L)
+{
+    unsigned __int128 K1, K2;
+
+    K1 = L << 1;
+    if (L >> 127)
+        K1 ^= 0x87;
+
+    K2 = K1 << 1;
+    if (K1 >> 127)
+        K2 ^= 0x87;
+
+    printf("128-bit K1 generated.\n");
+    printf("128-bit K2 generated.\n");
+}
+
+int main()
+{
+    uint64_t L;
+
+    printf("Enter 64-bit hexadecimal value: ");
+    scanf("%llx", (unsigned long long *)&L);
+
+    cmac64(L);
+
+    return 0;
+}
