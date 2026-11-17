@@ -1,0 +1,44 @@
+
+#include <stdio.h>
+
+long long power(long long b, long long e, long long n)
+{
+    long long r = 1;
+    while (e > 0) {
+        if (e % 2)
+            r = (r * b) % n;
+        b = (b * b) % n;
+        e /= 2;
+    }
+    return r;
+}
+
+int main()
+{
+    char text[100];
+    long long e, n;
+
+    printf("Enter message: ");
+    scanf("%99s", text);
+
+    printf("Enter public exponent e: ");
+    scanf("%lld", &e);
+
+    printf("Enter modulus n: ");
+    scanf("%lld", &n);
+
+    printf("\nEncrypted message:\n");
+
+    for (int i = 0; text[i] != '\0'; i++) {
+        int p = text[i] - 'A';
+
+        if (p < 0 || p > 25) {
+            printf("Use uppercase letters only.\n");
+            return 1;
+        }
+
+        printf("%lld ", power(p, e, n));
+    }
+
+    return 0;
+}
