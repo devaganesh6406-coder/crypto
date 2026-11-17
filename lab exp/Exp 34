@@ -1,0 +1,39 @@
+
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char msg[100];
+    int blockSize = 8;
+    int len, pad, i;
+
+    printf("Enter plaintext: ");
+    fgets(msg, sizeof(msg), stdin);
+
+    len = strlen(msg);
+
+    if (len > 0 && msg[len - 1] == '\n')
+        len--;
+
+    pad = blockSize - (len % blockSize);
+
+    if (pad == 0)
+        pad = blockSize;
+
+    msg[len] = 0x80;
+
+    for (i = 1; i < pad; i++)
+        msg[len + i] = 0x00;
+
+    msg[len + pad] = '\0';
+
+    printf("\nPadded message:\n");
+
+    for (i = 0; i < len + pad; i++)
+        printf("%02X ", (unsigned char)msg[i]);
+
+    printf("\nTotal padded length: %d\n", len + pad);
+
+    return 0;
+}
