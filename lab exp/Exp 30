@@ -1,0 +1,23 @@
+
+#include <stdio.h>
+
+int main()
+{
+    unsigned char X = 0x35;
+    unsigned char T = 0xA7;
+
+    unsigned char secondBlock = X ^ T;
+
+    unsigned char result = X ^ secondBlock;
+
+    printf("Message X = 0x%02X\n", X);
+    printf("MAC tag T = 0x%02X\n", T);
+    printf("Second block X XOR T = 0x%02X\n",
+           secondBlock);
+
+    printf("Final CBC input = 0x%02X\n", result);
+    printf("Final input equals original tag: %s\n",
+           result == T ? "YES" : "NO");
+
+    return 0;
+}
