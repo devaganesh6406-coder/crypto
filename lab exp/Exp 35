@@ -1,0 +1,42 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main()
+{
+    char text[100];
+    int key[100], cipher[100], n;
+
+    printf("Enter uppercase plaintext: ");
+    scanf("%99s", text);
+
+    n = 0;
+    while (text[n] != '\0')
+        n++;
+
+    srand((unsigned)time(NULL));
+
+    printf("\nGenerated key: ");
+
+    for (int i = 0; i < n; i++) {
+        key[i] = rand() % 26;
+        printf("%d ", key[i]);
+    }
+
+    printf("\nCiphertext: ");
+
+    for (int i = 0; i < n; i++) {
+        if (text[i] < 'A' || text[i] > 'Z') {
+            printf("\nUse uppercase letters only.\n");
+            return 1;
+        }
+
+        cipher[i] = ((text[i] - 'A') + key[i]) % 26;
+        printf("%c", cipher[i] + 'A');
+    }
+
+    printf("\n");
+
+    return 0;
+}
